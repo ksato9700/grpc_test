@@ -1,7 +1,12 @@
 syntax = "proto3";
 
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.helloworld";
+
+package io.grpc.examples.helloworld;
+
 service Greeter {
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
+  rpc sayHello (HelloRequest) returns (HelloReply) {}
 }
 
 message HelloRequest {
