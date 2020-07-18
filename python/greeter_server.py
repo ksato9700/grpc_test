@@ -6,6 +6,7 @@ import helloworld_pb2_grpc
 
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
+
 class Greeter(helloworld_pb2_grpc.GreeterServicer):
 
     def sayHello(self, request, context):
@@ -13,7 +14,9 @@ class Greeter(helloworld_pb2_grpc.GreeterServicer):
         print(repr(request.name))
         print(repr(request.ver))
         print('context', context)
-        return helloworld_pb2.HelloReply(message='Hello {}!'.format(request.name))
+        return helloworld_pb2.HelloReply(
+            message='Hello {}!'.format(request.name))
+
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
@@ -26,6 +29,7 @@ def serve():
             time.sleep(_ONE_DAY_IN_SECONDS)
     except KeyboardInterrupt:
         server.stop(0)
+
 
 if __name__ == '__main__':
     serve()
