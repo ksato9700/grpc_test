@@ -25,6 +25,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "apis"
+version = "0.1.0"
+source = "git+ssh://git@github.com/ksato9700/apis.git#485a2ed7e972e61c3a1c25beaea8f0eed1812ea2"
+dependencies = [
+ "futures",
+ "grpcio",
+ "protobuf",
+ "protoc-grpcio",
+]
+
+[[package]]
 name = "backtrace"
 version = "0.3.50"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -295,10 +306,10 @@ dependencies = [
 name = "hello-grpc"
 version = "0.1.0"
 dependencies = [
+ "apis",
  "futures",
  "grpcio",
  "protobuf",
- "protoc-grpcio",
 ]
 
 [[package]]

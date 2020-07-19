@@ -1,6 +1,6 @@
+use apis::helloworld::HelloRequest;
+use apis::helloworld_grpc::GreeterClient;
 use grpcio::{ChannelBuilder, EnvBuilder};
-use protos::helloworld::HelloRequest;
-use protos::helloworld_grpc::GreeterClient;
 use std::sync::Arc;
 
 fn main() {
