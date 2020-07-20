@@ -1,7 +1,7 @@
 import grpc
 
-import helloworld_pb2
-import helloworld_pb2_grpc
+from apis import helloworld_pb2
+from apis import helloworld_pb2_grpc
 
 
 def run():

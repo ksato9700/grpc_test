@@ -1,2 +1,1 @@
-grpcio==1.30.0
-grpcio-tools==1.30.0
+git+ssh://git@github.com/ksato9700/apis.git#egg=apis&subdirectory=python
