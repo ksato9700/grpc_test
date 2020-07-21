@@ -1,0 +1,10 @@
+{
+  "name": "grpc-test",
+  "version": "0.1.0",
+  "description": "gRPC test program",
+  "main": "index.js",
+  "author": "Kenichi Sato <ksato9700@gmail.com>",
+  "dependencies": {
+    "apis": "git+ssh://git@github.com/ksato9700/apis.git"
+  }
+}
