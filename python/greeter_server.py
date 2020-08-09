@@ -13,6 +13,7 @@ class Greeter(helloworld_pb2_grpc.GreeterServicer):
         print('request', request)
         print(repr(request.name))
         print(repr(request.ver))
+        print(repr(request.bloodType))
         print('context', context)
         return helloworld_pb2.HelloReply(
             message='Hello {}!'.format(request.name))
