@@ -16,4 +16,4 @@ path = "src/client.rs"
 futures = "0.3.5"
 grpcio = "0.6.0"
 protobuf = "~2"
-apis = { git = "ssh://git@github.com/ksato9700/apis", rev = "2582aa32ae4713fcc041c59ceca25b9005c69951"}
+apis = { git = "ssh://git@github.com/ksato9700/apis", rev = "d32546d57f661f5e28d54b23c805e8dce2fc2545"}

@@ -1,4 +1,4 @@
-use apis::helloworld::HelloRequest;
+use apis::helloworld::{BloodType, HelloRequest};
 use apis::helloworld_grpc::GreeterClient;
 use grpcio::{ChannelBuilder, EnvBuilder};
 use std::sync::Arc;
@@ -11,6 +11,13 @@ fn main() {
     let mut req = HelloRequest::new();
     req.set_name("Ken".to_string());
     req.set_ver(123);
-    let rep = client.say_hello(&req).expect("RPC Failed!");
-    println!("greeter client received: {}", rep.message);
+    req.set_bloodType(BloodType::B);
+    match client.say_hello(&req) {
+        Ok(rep) => {
+            println!("greeter client received: {}", rep.message);
+        }
+        Err(err) => {
+            println!("ERRRORR: {}", err);
+        }
+    };
 }
