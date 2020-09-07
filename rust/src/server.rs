@@ -4,9 +4,9 @@ use std::{io, thread};
 
 use futures::prelude::*;
 use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
-use grpcio::{RpcStatus, RpcStatusCode};
+// use grpcio::{RpcStatus, RpcStatusCode};
 
-use apis::helloworld::{BloodType, HelloReply, HelloRequest};
+use apis::helloworld::{HelloReply, HelloRequest};
 use apis::helloworld_grpc::{self, Greeter};
 use futures::channel::oneshot;
 use futures::executor::block_on;
@@ -18,20 +18,26 @@ impl Greeter for GreeterService {
     fn say_hello(&mut self, ctx: RpcContext, req: HelloRequest, sink: UnarySink<HelloReply>) {
         let mut rep = HelloReply::new();
 
-        let f = if req.bloodType == BloodType::B {
-            let reply_msg = "bloodType::B is not acceptable";
-            let status =
-                RpcStatus::new(RpcStatusCode::INVALID_ARGUMENT, Some(reply_msg.to_string()));
-            println!("status: {:?}", status);
-            sink.fail(status)
-        } else {
-            println!("say_hello: request={:?}", req);
-            rep.set_message(format!("Hello {}!", req.name));
-            sink.success(rep.clone())
-        }
-        .map_err(move |err| eprintln!("Failed to reply: {:?}", err))
-        .map(move |_| println!("Responded with Reply {{ {:?} }}", rep));
+        // let f = if req.bloodType == BloodType::B {
+        //     let reply_msg = "bloodType::B is not acceptable";
+        //     let status =
+        //         RpcStatus::new(RpcStatusCode::INVALID_ARGUMENT, Some(reply_msg.to_string()));
+        //     println!("status: {:?}", status);
+        //     sink.fail(status)
+        // } else {
+        //     println!("say_hello: request={:?}", req);
+        //     rep.set_message(format!("Hello {}!", req.name));
+        //     sink.success(rep.clone())
+        // }
+        // .map_err(move |err| eprintln!("Failed to reply: {:?}", err))
+        // .map(move |_| println!("Responded with Reply {{ {:?} }}", rep));
 
+        println!("say_hello: request={:?}", req);
+        rep.set_message(format!("Hello {}!", req.name));
+        let f = sink
+            .success(rep.clone())
+            .map_err(move |err| eprintln!("Failed to reply: {:?}", err))
+            .map(move |_| println!("Responded with Reply {{ {:?} }}", rep));
         ctx.spawn(f)
     }
 }

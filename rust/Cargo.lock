@@ -27,7 +27,7 @@ dependencies = [
 [[package]]
 name = "apis"
 version = "0.1.1"
-source = "git+ssh://git@github.com/ksato9700/apis?rev=d32546d57f661f5e28d54b23c805e8dce2fc2545#d32546d57f661f5e28d54b23c805e8dce2fc2545"
+source = "git+ssh://git@github.com/ksato9700/apis?rev=887d89367cd597f10d6215eb7ca6e3431f3ba062#887d89367cd597f10d6215eb7ca6e3431f3ba062"
 dependencies = [
  "futures",
  "grpcio",

@@ -1,4 +1,5 @@
-use apis::helloworld::{BloodType, HelloRequest};
+use apis::blood_type::BloodType;
+use apis::helloworld::HelloRequest;
 use apis::helloworld_grpc::GreeterClient;
 use grpcio::{ChannelBuilder, EnvBuilder};
 use std::sync::Arc;

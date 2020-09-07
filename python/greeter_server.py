@@ -16,10 +16,10 @@ class Greeter(helloworld_pb2_grpc.GreeterServicer):
         print(repr(request.bloodType))
         print('context', context)
 
-        if request.bloodType == helloworld_pb2.HelloRequest.B:
-            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-            context.set_details('bloodType B is not acceptable')
-            raise Exception('bloodType mismatch')
+        # if request.bloodType == helloworld_pb2.HelloRequest.B:
+        #     context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+        #     context.set_details('bloodType B is not acceptable')
+        #     raise Exception('bloodType mismatch')
 
         return helloworld_pb2.HelloReply(
             message='Hello {}!'.format(request.name))
