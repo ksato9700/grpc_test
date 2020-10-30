@@ -3,4 +3,4 @@ proto_files = \
 	proto/helloworld.proto
 
 $(proto_files): protodep.toml
-	protodep up -i unused
+	protodep up -f -c -i unused
