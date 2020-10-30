@@ -1,8 +1,8 @@
 [package]
-name = "hello-grpc"
-version = "0.1.0"
 authors = ["Ken Sato <ksato9700@gmail.com>"]
 edition = "2018"
+name = "hello-grpc"
+version = "0.1.0"
 
 [[bin]]
 name = "server"
@@ -13,7 +13,7 @@ name = "client"
 path = "src/client.rs"
 
 [dependencies]
-futures = "0.3.5"
-grpcio = "0.6.0"
+apis = {git = "ssh://git@github.com/ksato9700/apis", rev = "d32546d57f661f5e28d54b23c805e8dce2fc2545"}
+futures = "0.3"
+grpcio = "0.6"
 protobuf = "~2"
-apis = { git = "ssh://git@github.com/ksato9700/apis", rev = "d32546d57f661f5e28d54b23c805e8dce2fc2545"}
