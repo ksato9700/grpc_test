@@ -1,0 +1,7 @@
+proto_outdir = "./proto"
+
+[[dependencies]]
+  target = "github.com/ksato9700/apis/v1"
+  revision = "887d89367cd597f10d6215eb7ca6e3431f3ba062"
+  branch = "master"
+  path = ""

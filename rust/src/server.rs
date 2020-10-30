@@ -6,10 +6,13 @@ use futures::prelude::*;
 use grpcio::{Environment, RpcContext, ServerBuilder, UnarySink};
 use grpcio::{RpcStatus, RpcStatusCode};
 
-use apis::helloworld::{BloodType, HelloReply, HelloRequest};
-use apis::helloworld_grpc::{self, Greeter};
 use futures::channel::oneshot;
 use futures::executor::block_on;
+
+mod helloworld;
+pub use helloworld::blood_type::BloodType;
+pub use helloworld::helloworld::{HelloReply, HelloRequest};
+pub use helloworld::helloworld_grpc::{create_greeter, Greeter};
 
 #[derive(Clone)]
 struct GreeterService;
@@ -38,7 +41,7 @@ impl Greeter for GreeterService {
 
 fn main() {
     let env = Arc::new(Environment::new(1));
-    let service = helloworld_grpc::create_greeter(GreeterService);
+    let service = create_greeter(GreeterService);
     let mut server = ServerBuilder::new(env)
         .register_service(service)
         .bind("127.0.0.1", 50051)

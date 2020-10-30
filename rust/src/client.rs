@@ -1,7 +1,10 @@
-use apis::helloworld::{BloodType, HelloRequest};
-use apis::helloworld_grpc::GreeterClient;
 use grpcio::{ChannelBuilder, EnvBuilder};
 use std::sync::Arc;
+
+mod helloworld;
+use helloworld::blood_type::BloodType;
+use helloworld::helloworld::HelloRequest;
+use helloworld::helloworld_grpc::GreeterClient;
 
 fn main() {
     let env = Arc::new(EnvBuilder::new().build());
