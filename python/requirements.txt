@@ -1,1 +1,0 @@
-git+ssh://git@github.com/ksato9700/apis.git#egg=apis&subdirectory=python/grpc
