@@ -1,6 +1,7 @@
-const { grpc, apis } = require('apis');
+const grpc = require('grpc');
+const helloworld = require('./helloworld');
 
-const client = new apis.Greeter('127.0.0.1:50051', grpc.credentials.createInsecure())
+const client = new helloworld.Greeter('127.0.0.1:50051', grpc.credentials.createInsecure())
 
 client.sayHello({ name: 'Node', ver: 321 }, (error, response) => {
     if (!error) {

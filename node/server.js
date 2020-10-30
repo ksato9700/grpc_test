@@ -1,4 +1,5 @@
-const { grpc, apis } = require('apis');
+const grpc = require('grpc');
+const helloworld = require('./helloworld');
 
 const server = new grpc.Server();
 
@@ -10,7 +11,7 @@ const sayHello = (call, callback) => {
     callback(null, { message });
 }
 
-server.addService(apis.Greeter.service, {
+server.addService(helloworld.Greeter.service, {
     sayHello
 });
 
