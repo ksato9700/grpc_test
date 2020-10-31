@@ -1,0 +1,23 @@
+[package]
+name = "hello-grpc-tonic"
+version = "0.1.0"
+authors = ["Ken Sato <ksato9700@gmail.com>"]
+edition = "2018"
+build = "build.rs"
+
+[[bin]]
+name = "server"
+path = "src/server.rs"
+
+[[bin]]
+name = "client"
+path = "src/client.rs"
+
+[dependencies]
+tonic = "0.3"
+prost = "0.6"
+tokio = { version = "0.2", features = ["rt-threaded", "time", "stream", "fs", "macros", "uds"] }
+futures = { version = "0.3", default-features = false, features = ["alloc"] }
+
+[build-dependencies]
+tonic-build = { version="0.3", features = ["prost"] }
