@@ -1,0 +1,73 @@
+plugins {
+    id 'application'
+    id 'com.google.protobuf' version '0.8.13'
+}
+
+repositories {
+    maven {
+        url "https://maven-central.storage-download.googleapis.com/maven2/" }
+    mavenCentral()
+    mavenLocal()
+}
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+def grpcVersion = '1.33.1'
+def protobufVersion = '3.12.0'
+def protocVersion = protobufVersion
+
+dependencies {
+    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+    implementation "io.grpc:grpc-stub:${grpcVersion}"
+    compileOnly "org.apache.tomcat:annotations-api:6.0.53"
+
+    implementation "com.google.protobuf:protobuf-java-util:${protobufVersion}"
+
+    runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
+
+    testImplementation "io.grpc:grpc-testing:${grpcVersion}"
+    testImplementation "junit:junit:4.13"
+    testImplementation "org.mockito:mockito-core:2.28.2"
+}
+
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:${protocVersion}" }
+    plugins {
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" }
+    }
+    generateProtoTasks {
+        all()*.plugins { grpc {} }
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'build/generated/source/proto/main/grpc'
+            srcDirs 'build/generated/source/proto/main/java'
+        }
+    }
+}
+
+startScripts.enabled = false
+
+task helloWorldServer(type: CreateStartScripts) {
+    mainClassName = 'helloworld.HelloWorldServer'
+    applicationName = 'hello-world-server'
+    outputDir = new File(project.buildDir, 'tmp')
+    classpath = startScripts.classpath
+}
+
+task helloWorldClient(type: CreateStartScripts) {
+    mainClassName = 'helloworld.HelloWorldClient'
+    applicationName = 'hello-world-client'
+    outputDir = new File(project.buildDir, 'tmp')
+    classpath = startScripts.classpath
+}
+
+applicationDistribution.into('bin') {
+    from(helloWorldServer)
+    from(helloWorldClient)
+    fileMode = 0755
+}
