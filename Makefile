@@ -3,4 +3,4 @@ proto_files = \
 	proto/helloworld.proto
 
 $(proto_files): protodep.toml
-	protodep up -f -c -i unused
+	protodep up --use-https -f -c -i unused
