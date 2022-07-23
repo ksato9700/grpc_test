@@ -1,15 +1,16 @@
 {
   "name": "grpc-test",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "gRPC test program",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-      "run-client": "node client.js",
-      "run-server": "node server.js"
+    "run-client": "node client.js",
+    "run-server": "node server.js"
   },
   "author": "Kenichi Sato <ksato9700@gmail.com>",
   "dependencies": {
-    "@grpc/proto-loader": "^0.5.5",
-    "grpc": "^1.24.9"
+    "@grpc/grpc-js": "^1.6.8",
+    "@grpc/proto-loader": "^0.7.0"
   }
 }
