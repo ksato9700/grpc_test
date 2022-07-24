@@ -15,12 +15,15 @@ const sayHello = (call, callback) => {
 
 server.addService(helloworld.service, { sayHello });
 
+const port = process.env.PORT || "50051"
+const server_address = `[::]:${port}`;
 server.bindAsync(
-    '127.0.0.1:50051',
+    server_address,
     grpc.ServerCredentials.createInsecure(),
-    (err, _port) => {
+    (err, port) => {
         assert.ifError(err)
-        console.log('gRPC server running at http://127.0.0.1:50051');
+        console.log(port);
+        console.log(`gRPC server running at ${server_address}`);
         server.start();
     }
 );
