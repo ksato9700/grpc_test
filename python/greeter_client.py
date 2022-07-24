@@ -1,23 +1,32 @@
+import os
+
 import grpc
 
-from helloworld import helloworld_pb2
-from helloworld import helloworld_pb2_grpc
+from greeter.helloworld import helloworld_pb2, helloworld_pb2_grpc
 
 
 def run():
-    channel = grpc.insecure_channel('localhost:50051')
+    server = os.environ.get("GRPC_SERVER", "localhost")
+    port = os.environ.get("GRPC_PORT", "50051")
+    insecure = os.environ.get("GRPC_INSECURE", False)
+    cert = os.environ.get("GRPC_CERT", None)
+    if insecure:
+        channel = grpc.insecure_channel(f"{server}:{port}")
+    else:
+        with open(cert, "rb") as rfp:
+            credentials = grpc.ssl_channel_credentials(rfp.read())
+            channel = grpc.secure_channel(f"{server}:{port}", credentials)
+
     stub = helloworld_pb2_grpc.GreeterStub(channel)
     try:
-        response = stub.sayHello(helloworld_pb2.HelloRequest(
-            name='you',
-            ver=123,
-            bloodType="B"
-        ))
+        response = stub.sayHello(
+            helloworld_pb2.HelloRequest(name="you", ver=123, bloodType="B")
+        )
         # response = stub.sayHello(helloworld_pb2.HelloRequest(ver=123))
-        print('greeter client received: {}'.format(response.message))
+        print(f"greeter client received: {response.message}")
     except Exception as e:
         print(e)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     run()

@@ -1,16 +1,18 @@
 [tool.poetry]
-name = "grpc_hello_world"
-version = "0.1.0"
+name = "greeter"
+version = "0.1.1"
 description = ""
 authors = ["Ken Sato <ksato9700@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "~3.10"
 grpcio = "^1.47.0"
+protobuf = "~3"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.9.2"
 grpcio-tools = "^1.47.0"
+black = {version = "^22.6.0", allow-prereleases = true}
 
 [build-system]
 requires = ["poetry>=0.12"]
