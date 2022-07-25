@@ -7,6 +7,6 @@ RUN npm install
 FROM node:16-alpine
 WORKDIR /work
 COPY --from=builder /work/node_modules /work/node_modules
-#COPY proto ./proto
-COPY package.json server.js helloworld.js *.proto ./
+COPY proto ./proto
+COPY package.json server.js helloworld.js ./
 CMD ["node", "server.js"]
