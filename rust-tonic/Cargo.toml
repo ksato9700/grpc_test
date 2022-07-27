@@ -14,10 +14,10 @@ name = "client"
 path = "src/client.rs"
 
 [dependencies]
-tonic = "0.6"
-prost = "0.9"
-tokio = { version = "1.17", features = ["full"] }
-futures = { version = "0.3", default-features = false, features = ["alloc"] }
+tonic = "0.7.2"
+prost = "0.10.4"
+tokio = { version = "1.20.1", features = ["full"] }
+futures = { version = "0.3.21", default-features = false, features = ["alloc"] }
 
 [build-dependencies]
-tonic-build = { version="0.6", features = ["prost"] }
+tonic-build = { version="0.7.2", features = ["prost"] }

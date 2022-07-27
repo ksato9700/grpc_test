@@ -1,3 +1,4 @@
+use std::env;
 use tonic::{transport::Server, Request, Response, Status};
 
 pub mod hello_world {
@@ -6,7 +7,6 @@ pub mod hello_world {
 
 use hello_world::greeter_server::{Greeter, GreeterServer};
 use hello_world::{HelloReply, HelloRequest};
-
 
 #[derive(Default)]
 pub struct MyGreeter {}
@@ -29,7 +29,8 @@ impl Greeter for MyGreeter {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = "[::1]:50051".parse().unwrap();
+    let port: String = env::var("PORT").unwrap_or("50051".to_string());
+    let addr = format!("[::0]:{}", port).parse().unwrap();
     let greeter = MyGreeter::default();
 
     println!("GreeterServer listening on {}", addr);
