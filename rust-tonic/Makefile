@@ -9,7 +9,11 @@ run-server-local:
 	cargo run --bin server
 
 run-server-docker:
-	docker run -it --rm -e PORT=8080 -p 50051:8080 greeter-server-rust:latest
+	docker run -it --rm \
+		--name greeter-server-rust \
+		-e PORT=8080 \
+		-p 50051:8080 \
+		greeter-server-rust:latest
 
 run-client:
 	cargo run --bin client

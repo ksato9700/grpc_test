@@ -8,3 +8,5 @@ steps:
 timeout: 12000s
 images:
 - "asia-northeast1-docker.pkg.dev/$PROJECT_ID/tokyo/greeter-server-rust"
+options:
+  machineType: 'N1_HIGHCPU_8'
