@@ -1,0 +1,10 @@
+steps:
+- name: "gcr.io/cloud-builders/docker"
+  args:
+  - build
+  - "--tag=asia-northeast1-docker.pkg.dev/$PROJECT_ID/tokyo/greeter-server-rust"
+  - .
+
+timeout: 12000s
+images:
+- "asia-northeast1-docker.pkg.dev/$PROJECT_ID/tokyo/greeter-server-rust"
