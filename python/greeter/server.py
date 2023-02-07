@@ -16,6 +16,11 @@ logging.basicConfig(level=logging.INFO)
 
 class Greeter(pb2_grpc.GreeterServicer):
     def sayHello(self, request, context):
+        if request.name == "Donald":
+            context.set_details(f"Ouch! I don't like you, {request.name}")
+            context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
+            return pb2.HelloReply()
+
         logging.info(f"{request=}")
         logging.info(f"{request.name=}")
         logging.info(f"{request.ver=}")

@@ -1,7 +1,6 @@
 import os
 
 import grpc
-
 from greeter.helloworld import helloworld_pb2, helloworld_pb2_grpc
 
 
@@ -18,14 +17,15 @@ def run():
             channel = grpc.secure_channel(f"{server}:{port}", credentials)
 
     stub = helloworld_pb2_grpc.GreeterStub(channel)
-    try:
-        response = stub.sayHello(
-            helloworld_pb2.HelloRequest(name="you", ver=123, bloodType="B")
-        )
-        # response = stub.sayHello(helloworld_pb2.HelloRequest(ver=123))
-        print(f"greeter client received: {response.message}")
-    except Exception as e:
-        print(e)
+    for name in ("Joe", "Donald"):
+        try:
+            response = stub.sayHello(
+                helloworld_pb2.HelloRequest(name=name, ver=123, bloodType="B")
+            )
+            # response = stub.sayHello(helloworld_pb2.HelloRequest(ver=123))
+            print(f"greeter client received: {response.message}")
+        except Exception as e:
+            print(f"{e.code()}: {e.details()}")
 
 
 if __name__ == "__main__":
