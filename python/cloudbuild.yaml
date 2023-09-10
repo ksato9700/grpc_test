@@ -2,8 +2,8 @@ steps:
 - name: "gcr.io/cloud-builders/docker"
   args:
   - build
-  - "--tag=asia-northeast1-docker.pkg.dev/$PROJECT_ID/tokyo/greeter-server-python"
+  - "--tag=asia-northeast1-docker.pkg.dev/$PROJECT_ID/sandbox/greeter-server-python"
   - .
 
 images:
-- "asia-northeast1-docker.pkg.dev/$PROJECT_ID/tokyo/greeter-server-python"
+- "asia-northeast1-docker.pkg.dev/$PROJECT_ID/sandbox/greeter-server-python"

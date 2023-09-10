@@ -1,9 +1,9 @@
 steps:
-- name: "gcr.io/cloud-builders/docker"
-  args:
-  - build
-  - "--tag=asia-northeast1-docker.pkg.dev/$PROJECT_ID/tokyo/greeter-server-node"
-  - .
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      - build
+      - "--tag=asia-northeast1-docker.pkg.dev/$PROJECT_ID/sandbox/greeter-server-node"
+      - .
 
 images:
-- "asia-northeast1-docker.pkg.dev/$PROJECT_ID/tokyo/greeter-server-node"
+  - "asia-northeast1-docker.pkg.dev/$PROJECT_ID/sandbox/greeter-server-node"

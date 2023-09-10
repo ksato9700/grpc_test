@@ -48,15 +48,16 @@ impl Greeter for GreeterService {
 fn main() {
     let env = Arc::new(Environment::new(1));
     let service = create_greeter(GreeterService);
+    let addr = "127.0.0.1:50051";
     let mut server = ServerBuilder::new(env)
         .register_service(service)
-        .bind("127.0.0.1", 50051)
         .build()
         .unwrap();
+    server
+        .add_listening_port(addr, grpcio::ServerCredentials::insecure())
+        .unwrap();
     server.start();
-    for (ref host, port) in server.bind_addrs() {
-        println!("listening on {}:{}", host, port);
-    }
+    println!("listening on {addr}");
     let (tx, rx) = oneshot::channel();
     thread::spawn(move || {
         println!("Press ENTER to exit...");
