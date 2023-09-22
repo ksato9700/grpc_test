@@ -36,6 +36,7 @@ impl Greeter for GreeterService {
         // .map(move |_| println!("Responded with Reply {{ {:?} }}", rep));
 
         println!("say_hello: request={:?}", req);
+        println!("request.extra={:?}", req.has_extra());
         rep.set_message(format!("Hello {}!", req.name));
         let f = sink
             .success(rep.clone())
