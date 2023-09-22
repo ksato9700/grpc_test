@@ -25,6 +25,7 @@ class Greeter(pb2_grpc.GreeterServicer):
         logging.info(f"{request.name=}")
         logging.info(f"{request.ver=}")
         logging.info(f"{request.bloodType=}")
+        logging.info(f"{request.extra}")
 
         return pb2.HelloReply(message=f"Hello {request.name}!")
 

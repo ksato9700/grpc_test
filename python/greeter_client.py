@@ -17,10 +17,19 @@ def run():
             channel = grpc.secure_channel(f"{server}:{port}", credentials)
 
     stub = helloworld_pb2_grpc.GreeterStub(channel)
-    for name in ("Joe", "Donald"):
+    for name in ("Joe", "Bill", "Donald"):
         try:
+            if name == "Bill":
+                extra = helloworld_pb2.Extra(
+                    extra_message="hey there",
+                    extra_code=123,
+                )
+            else:
+                extra = None
             response = stub.sayHello(
-                helloworld_pb2.HelloRequest(name=name, ver=123, bloodType="B")
+                helloworld_pb2.HelloRequest(
+                    name=name, ver=123, bloodType="B", extra=extra
+                )
             )
             # response = stub.sayHello(helloworld_pb2.HelloRequest(ver=123))
             print(f"greeter client received: {response.message}")
