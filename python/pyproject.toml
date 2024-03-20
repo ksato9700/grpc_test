@@ -12,7 +12,7 @@ protobuf = "^4.24.3"
 click = "^8.1.7"
 
 [tool.poetry.group.dev.dependencies]
-black = "^23.9.0"
+black = "^24.3.0"
 flake8 = "^6.1.0"
 grpcio-tools = "^1.58.0"
 
