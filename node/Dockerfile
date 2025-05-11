@@ -1,10 +1,10 @@
-FROM node:18-alpine as builder
+FROM node:23-alpine as builder
 WORKDIR /work
 COPY package.json ./
 RUN npm install
 # COPY helloworld /usr/local/lib/python3.10/site-packages/helloworld
 
-FROM node:18-alpine
+FROM node:23-alpine
 WORKDIR /work
 COPY --from=builder /work/node_modules /work/node_modules
 COPY proto ./proto

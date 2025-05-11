@@ -11,8 +11,8 @@ proto/%.js: proto/%.proto
 	cp -p $^ $@
 
 build-docker: $(JSPROTOS)
-	docker build . --target builder -t greeter-server-node-builder:latest
-	docker build . -t greeter-server-node:latest
+	docker-buildx build . --target builder -t greeter-server-node-builder:latest
+	docker-buildx build . -t greeter-server-node:latest
 
 build-cloud:
 	gcloud builds submit
