@@ -16,8 +16,8 @@ gen-grpc: $(PB2S)
 	gsed -i '/^import .*pb.*/s/import /from . import /' greeter/helloworld/*.py
 
 build-docker: gen-grpc
-	docker build . --target builder -t greeter-server-python-builder:latest
-	docker build . -t greeter-server-python:latest
+	docker-buildx build . --target builder -t greeter-server-python-builder:latest
+	docker-buildx build . -t greeter-server-python:latest
 
 run-client-local:
 	GRPC_INSECURE=True $(PYTHON) greeter_client.py
