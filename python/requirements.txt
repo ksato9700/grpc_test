@@ -1,9 +1,0 @@
-# Main dependencies
-grpcio>=1.58.0
-protobuf>=4.24.3
-click>=8.1.7
-
-# Dev dependencies (install with: uv pip install -r requirements.txt[dev])
-black>=23.9.0; extra == 'dev'
-flake8>=6.1.0; extra == 'dev'
-grpcio-tools>=1.58.0; extra == 'dev'
