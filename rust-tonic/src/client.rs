@@ -1,3 +1,4 @@
+
 use hello_world::greeter_client::GreeterClient;
 use hello_world::BloodType;
 use hello_world::HelloRequest;
@@ -14,6 +15,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         name: "Ken".into(),
         ver: 123,
         blood_type: BloodType::B as i32,
+        extra: None,
     });
     let response = client.say_hello(request).await?;
 
@@ -23,6 +25,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         name: "Donald".into(),
         ver: 321,
         blood_type: BloodType::Ab as i32,
+        extra: None,
     });
     client.say_hello(request).await?;
 

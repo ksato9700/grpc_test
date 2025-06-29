@@ -1,6 +1,6 @@
 [package]
 name = "hello-grpc-tonic"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["Ken Sato <ksato9700@gmail.com>"]
 edition = "2021"
 build = "build.rs"
@@ -14,10 +14,10 @@ name = "client"
 path = "src/client.rs"
 
 [dependencies]
-tonic = "0.10.0"
-prost = "0.12.0"
-tokio = { version = "1.32", features = ["full"] }
+tonic = "0.12"
+prost = "0.13"
+tokio = { version = "1.42", features = ["full"] }
 futures = { version = "0.3.28", default-features = false, features = ["alloc"] }
 
 [build-dependencies]
-tonic-build = { version = "0.10.0", features = ["prost"] }
+tonic-build = { version = "0.12", features = ["prost"] }
