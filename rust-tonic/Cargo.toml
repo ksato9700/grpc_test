@@ -5,6 +5,10 @@ authors = ["Ken Sato <ksato9700@gmail.com>"]
 edition = "2021"
 build = "build.rs"
 
+[lib]
+name = "hello_grpc_tonic_lib"
+path = "src/lib.rs"
+
 [[bin]]
 name = "server"
 path = "src/server.rs"
