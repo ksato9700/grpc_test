@@ -1,32 +1,8 @@
 use std::env;
-use tonic::{transport::Server, Request, Response, Status};
+use tonic::transport::Server;
 
-pub mod hello_world {
-    tonic::include_proto!("helloworld");
-}
-
-use hello_world::greeter_server::{Greeter, GreeterServer};
-use hello_world::{HelloReply, HelloRequest};
-
-#[derive(Default)]
-pub struct MyGreeter {}
-
-#[tonic::async_trait]
-impl Greeter for MyGreeter {
-    async fn say_hello(
-        &self,
-        request: Request<HelloRequest>,
-    ) -> Result<Response<HelloReply>, Status> {
-        println!("Got a request from {:?}", request.remote_addr());
-        println!("request={:?}", request);
-        println!("request.extra={:?}", request.get_ref().extra);
-
-        let reply = hello_world::HelloReply {
-            message: format!("Hello {}!", request.into_inner().name),
-        };
-        Ok(Response::new(reply))
-    }
-}
+use hello_grpc_tonic_lib::hello_world::greeter_server::GreeterServer;
+use hello_grpc_tonic_lib::MyGreeter;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {

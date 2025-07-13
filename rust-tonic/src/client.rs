@@ -1,11 +1,6 @@
-
-use hello_world::greeter_client::GreeterClient;
-use hello_world::BloodType;
-use hello_world::HelloRequest;
-
-pub mod hello_world {
-    tonic::include_proto!("helloworld");
-}
+use hello_grpc_tonic_lib::hello_world::greeter_client::GreeterClient;
+use hello_grpc_tonic_lib::hello_world::BloodType;
+use hello_grpc_tonic_lib::hello_world::HelloRequest;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
