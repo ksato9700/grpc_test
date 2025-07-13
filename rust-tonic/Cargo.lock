@@ -434,6 +434,7 @@ dependencies = [
  "futures",
  "prost",
  "tokio",
+ "tokio-stream",
  "tonic",
  "tonic-build",
  "tracing",

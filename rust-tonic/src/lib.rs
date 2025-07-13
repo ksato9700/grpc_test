@@ -30,29 +30,50 @@ impl Greeter for MyGreeter {
 
 #[cfg(test)]
 mod tests {
-    use std::time::Duration;
-
-    use tokio::time::sleep;
-    use tonic::transport::Server;
-
     use crate::hello_world::greeter_client::GreeterClient;
-    use crate::hello_world::greeter_server::GreeterServer;
+    use crate::hello_world::greeter_server::{Greeter, GreeterServer};
     use crate::hello_world::{BloodType, HelloRequest};
     use crate::MyGreeter;
+    use std::net::SocketAddr;
+    use tokio::net::TcpListener;
+    use tokio_stream::wrappers::TcpListenerStream;
+    use tonic::transport::Server;
+    use tonic::Request;
 
     #[tokio::test]
-    async fn test_greeter() {
-        let addr = "[::1]:50051".parse().unwrap();
+    async fn unit_test_say_hello() {
         let greeter = MyGreeter::default();
+        let request = Request::new(HelloRequest {
+            name: "Unit Test".into(),
+            ver: 1,
+            blood_type: BloodType::O as i32,
+            extra: None,
+        });
 
-        let server = Server::builder()
-            .add_service(GreeterServer::new(greeter))
-            .serve(addr);
+        let response = greeter.say_hello(request).await.unwrap();
+        assert_eq!(response.into_inner().message, "Hello Unit Test!");
+    }
 
-        tokio::spawn(server);
-        sleep(Duration::from_secs(1)).await;
+    #[tokio::test]
+    async fn test_greeter_integration() {
+        let greeter = MyGreeter::default();
+        let server = GreeterServer::new(greeter);
 
-        let mut client = GreeterClient::connect("http://[::1]:50051").await.unwrap();
+        let listener = TcpListener::bind("[::1]:0").await.unwrap();
+        let addr: SocketAddr = listener.local_addr().unwrap();
+        let stream = TcpListenerStream::new(listener);
+
+        tokio::spawn(async move {
+            Server::builder()
+                .add_service(server)
+                .serve_with_incoming(stream)
+                .await
+                .unwrap();
+        });
+
+        let mut client = GreeterClient::connect(format!("http://{}", addr))
+            .await
+            .unwrap();
 
         let request = tonic::Request::new(HelloRequest {
             name: "Tonic".into(),
