@@ -1,4 +1,5 @@
 use tonic::{Request, Response, Status};
+use tracing::info;
 
 pub mod hello_world {
     tonic::include_proto!("helloworld");
@@ -16,9 +17,9 @@ impl Greeter for MyGreeter {
         &self,
         request: Request<HelloRequest>,
     ) -> Result<Response<HelloReply>, Status> {
-        println!("Got a request from {:?}", request.remote_addr());
-        println!("request={:?}", request);
-        println!("request.extra={:?}", request.get_ref().extra);
+        info!("Got a request from {:?}", request.remote_addr());
+        info!("request={:?}", request);
+        info!("request.extra={:?}", request.get_ref().extra);
 
         let reply = hello_world::HelloReply {
             message: format!("Hello {}!", request.into_inner().name),
