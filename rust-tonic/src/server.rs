@@ -1,40 +1,30 @@
-use std::env;
-use tonic::{transport::Server, Request, Response, Status};
+use tonic::transport::Server;
+use tracing::{info, Level};
+use tracing_subscriber::FmtSubscriber;
 
-pub mod hello_world {
-    tonic::include_proto!("helloworld");
-}
+use clap::Parser;
+use hello_grpc_tonic_lib::hello_world::greeter_server::GreeterServer;
+use hello_grpc_tonic_lib::MyGreeter;
 
-use hello_world::greeter_server::{Greeter, GreeterServer};
-use hello_world::{HelloReply, HelloRequest};
-
-#[derive(Default)]
-pub struct MyGreeter {}
-
-#[tonic::async_trait]
-impl Greeter for MyGreeter {
-    async fn say_hello(
-        &self,
-        request: Request<HelloRequest>,
-    ) -> Result<Response<HelloReply>, Status> {
-        println!("Got a request from {:?}", request.remote_addr());
-        println!("request={:?}", request);
-        println!("request.extra={:?}", request.get_ref().extra);
-
-        let reply = hello_world::HelloReply {
-            message: format!("Hello {}!", request.into_inner().name),
-        };
-        Ok(Response::new(reply))
-    }
+#[derive(Parser, Debug)]
+#[command(version, about, long_about = None)]
+struct Args {
+    #[arg(short, long, default_value_t = 50051)]
+    port: u16,
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let port: String = env::var("PORT").unwrap_or("50051".to_string());
-    let addr = format!("[::0]:{}", port).parse().unwrap();
+    let args = Args::parse();
+    let subscriber = FmtSubscriber::builder()
+        .with_max_level(Level::INFO)
+        .finish();
+    tracing::subscriber::set_global_default(subscriber)?;
+
+    let addr = format!("[::0]:{}", args.port).parse()?;
     let greeter = MyGreeter::default();
 
-    println!("GreeterServer listening on {}", addr);
+    info!("GreeterServer listening on {}", addr);
 
     Server::builder()
         .add_service(GreeterServer::new(greeter))
