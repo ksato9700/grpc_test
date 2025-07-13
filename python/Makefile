@@ -36,3 +36,7 @@ run-server:
 
 run-server-docker:
 	docker run -it --rm -e PORT=8080 -p 50051:8080 greeter-server-python:latest
+
+test:
+	uv pip install -e .[dev]
+	uv run pytest
