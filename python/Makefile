@@ -20,12 +20,16 @@ build-docker: gen-grpc
 	docker-buildx build . -t greeter-server-python:latest
 
 run-client-local:
-	GRPC_INSECURE=True $(PYTHON) greeter_client.py
+	GRPC_INSECURE=True $(PYTHON) greeter_client.py Joe Bill Donald
 
 # See https://pki.goog/repository/ to get certificate
 # Specify the server name as GRPC_SERVER
 run-client-cloud:
-	GRPC_CERT=gtsr1.pem GRPC_PORT=443 $(PYTHON) greeter_client.py
+	GRPC_CERT=gtsr1.pem GRPC_PORT=443 $(PYTHON) greeter_client.py Joe Bill Donald
+
+# Usage: make run-client ARGS="--insecure Donald"
+run-client:
+	$(PYTHON) greeter_client.py $(ARGS)
 
 run-server:
 	PORT=50051 $(PYTHON) -m greeter.server
