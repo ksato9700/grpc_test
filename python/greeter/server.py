@@ -30,15 +30,19 @@ class Greeter(pb2_grpc.GreeterServicer):
         return pb2.HelloReply(message=f"Hello {request.name}!")
 
 
-def serve():
+def serve(port: str = "50051"):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    port = os.environ.get("PORT", "50051")
     pb2_grpc.add_GreeterServicer_to_server(Greeter(), server)
     server_url = f"[::]:{port}"
     server.add_insecure_port(server_url)
     logger.info(f"gRPC server running at {server_url}")
     server.start()
+    return server
 
+
+def serve_forever():
+    port = os.environ.get("PORT", "50051")
+    server = serve(port)
     try:
         while True:
             time.sleep(_ONE_DAY_IN_SECONDS)
@@ -47,4 +51,4 @@ def serve():
 
 
 if __name__ == "__main__":
-    serve()
+    serve_forever()
