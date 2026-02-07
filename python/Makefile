@@ -40,3 +40,9 @@ run-server-docker:
 test:
 	uv pip install -e .[dev]
 	uv run pytest
+
+lint:
+	uv run ruff check .
+
+format:
+	uv run ruff format .

@@ -2,6 +2,7 @@ import os
 
 import click
 import grpc
+
 from greeter.helloworld import helloworld_pb2, helloworld_pb2_grpc
 
 
@@ -19,10 +20,16 @@ def get_channel(server: str, port: int, insecure: bool, cert_path: str | None):
 @click.command()
 @click.option("--server", default=os.environ.get("GRPC_SERVER", "localhost"))
 @click.option("--port", default=os.environ.get("GRPC_PORT", 50051), type=int)
-@click.option("--insecure", default=os.environ.get("GRPC_INSECURE", False), is_flag=True)
-@click.option("--cert-path", default=os.environ.get("GRPC_CERT", None), type=click.Path())
+@click.option(
+    "--insecure", default=os.environ.get("GRPC_INSECURE", False), is_flag=True
+)
+@click.option(
+    "--cert-path", default=os.environ.get("GRPC_CERT", None), type=click.Path()
+)
 @click.argument("name", type=str, nargs=-1)
-def main(server: str, port: int, insecure: bool, cert_path: str | None, name: tuple[str]):
+def main(
+    server: str, port: int, insecure: bool, cert_path: str | None, name: tuple[str]
+):
     """Greeter client."""
     channel = get_channel(server, port, insecure, cert_path)
     stub = helloworld_pb2_grpc.GreeterStub(channel)

@@ -67,6 +67,26 @@ make build-docker
 make run-server-docker
 ```
 
+### Development
+
+Run linting:
+
+```bash
+make lint
+```
+
+Run formatting:
+
+```bash
+make format
+```
+
+Run tests:
+
+```bash
+make test
+```
+
 ## Project Structure
 
 - `greeter/` - The main package
