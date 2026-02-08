@@ -54,13 +54,19 @@ public class HelloWorldClient {
 
     public static void main(String[] args) throws Exception {
         String target = "localhost:50051";
+        int startIndex = 0;
+
+        if (args.length > 0 && args[0].contains(":")) {
+            target = args[0];
+            startIndex = 1;
+        }
 
         ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
         try {
             HelloWorldClient client = new HelloWorldClient(channel);
-            if (args.length > 0) {
-                for (String name : args) {
-                    client.greet(name);
+            if (args.length > startIndex) {
+                for (int i = startIndex; i < args.length; i++) {
+                    client.greet(args[i]);
                 }
             } else {
                 client.greet("Ken");

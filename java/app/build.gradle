@@ -12,8 +12,8 @@ repositories {
     mavenLocal()
 }
 
-sourceCompatibility = 25
-targetCompatibility = 25
+sourceCompatibility = 21
+targetCompatibility = 21
 
 def grpcVersion = '1.61.1'
 def protobufVersion = '3.25.3'

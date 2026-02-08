@@ -1,16 +1,16 @@
 PROTO_DIR = app/src/main/proto
 
 setup:
+	rm -rf $(PROTO_DIR)
 	mkdir -p $(PROTO_DIR)
-	if [ ! -L $(PROTO_DIR) ]; then \
-		rm -rf $(PROTO_DIR); \
-		ln -s ../../../../proto $(PROTO_DIR); \
-	fi
+	cp ../proto/*.proto $(PROTO_DIR)/
 
-build: setup
-	./gradlew installDist
+build: setup build-local
 
-build-docker: build
+build-local:
+	docker run --rm -v $(CURDIR):/app -w /app amazoncorretto:21 ./gradlew installDist
+
+build-docker: setup
 	docker build . -t greeter-server-java:latest
 
 run-client:

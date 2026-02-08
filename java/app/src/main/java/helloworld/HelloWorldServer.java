@@ -30,7 +30,8 @@ public class HelloWorldServer {
 
     private void start() throws IOException {
         /* The port on which the server should run */
-        int port = 50051;
+        String portEnv = System.getenv("PORT");
+        int port = (portEnv != null) ? Integer.parseInt(portEnv) : 50051;
         server = ServerBuilder.forPort(port).addService(new GreeterImpl()).build().start();
         logger.info("Server started, listening on " + port);
         Runtime.getRuntime().addShutdownHook(new Thread() {

@@ -1,4 +1,4 @@
-FROM amazoncorretto:25
+FROM amazoncorretto:21
 WORKDIR /app
 COPY . .
 RUN ./gradlew installDist
