@@ -41,14 +41,14 @@ make run-client   # Run the client (use ARGS="..." for arguments)
 
 ### Prerequisites
 - Node.js (v22+ recommended)
-- Yarn or NPM
+- pnpm
 
 ### Setup & Run
 ```bash
 cd node
-yarn install      # or npm install
+pnpm install
 make run-server-local
-make run-client
+make run-client       # use ARGS="..." for arguments
 ```
 
 ---
