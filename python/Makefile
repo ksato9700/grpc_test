@@ -12,6 +12,8 @@ PB2S=$(patsubst $(PROTOS_DIR)/%.proto,$(OUTDIR)/%_pb2.py,$(PROTOS))
 $(OUTDIR)/%_pb2.py:$(PROTOS_DIR)/%.proto
 	$(GRPC_GEN) -I$(PROTOS_DIR) $(GRPC_OUTPUT_OPTS) $^
 
+build: gen-grpc
+
 gen-grpc: $(PB2S)
 	gsed -i '/^import .*pb.*/s/import /from . import /' greeter/helloworld/*.py
 
