@@ -1,6 +1,8 @@
 plugins {
     id 'application'
-    id 'com.google.protobuf' version '0.8.13'
+    id 'com.google.protobuf' version '0.9.4'
+    id "com.diffplug.spotless" version "6.25.0"
+
 }
 
 repositories {
@@ -10,11 +12,11 @@ repositories {
     mavenLocal()
 }
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 25
+targetCompatibility = 25
 
-def grpcVersion = '1.33.1'
-def protobufVersion = '3.12.0'
+def grpcVersion = '1.61.1'
+def protobufVersion = '3.25.3'
 def protocVersion = protobufVersion
 
 dependencies {
@@ -27,8 +29,8 @@ dependencies {
     runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
 
     testImplementation "io.grpc:grpc-testing:${grpcVersion}"
-    testImplementation "junit:junit:4.13"
-    testImplementation "org.mockito:mockito-core:2.28.2"
+    testImplementation "org.junit.jupiter:junit-jupiter:5.10.2"
+    testImplementation "org.mockito:mockito-core:5.10.0"
 }
 
 protobuf {
@@ -71,3 +73,10 @@ applicationDistribution.into('bin') {
     from(helloWorldClient)
     fileMode = 0755
 }
+
+spotless {
+    java {
+        googleJavaFormat()
+    }
+}
+

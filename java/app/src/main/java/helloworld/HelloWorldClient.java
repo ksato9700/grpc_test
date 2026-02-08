@@ -34,26 +34,37 @@ public class HelloWorldClient {
 
     /** Say hello to server. */
     public void greet(String name) {
-        HelloRequest request = HelloRequest.newBuilder().setName(name).setVer(123)
-                .setBloodType(BloodTypeOuterClass.BloodType.B).build();
+        HelloRequest.Builder requestBuilder =
+                HelloRequest.newBuilder().setName(name).setVer(123).setBloodType(BloodType.B);
+
+        if ("Bill".equals(name)) {
+            requestBuilder.setExtra(
+                    Extra.newBuilder().setExtraMessage("hey there").setExtraCode(123).build());
+        }
+
         HelloReply response;
         try {
-            response = blockingStub.sayHello(request);
+            response = blockingStub.sayHello(requestBuilder.build());
         } catch (StatusRuntimeException e) {
-            logger.log(Level.WARNING, "RPC failed: {0}", e.getStatus());
+            logger.log(Level.WARNING, "RPC failed for {0}: {1}", new Object[] {name, e.getStatus()});
             return;
         }
         logger.info("Greeting: " + response.getMessage());
     }
 
     public static void main(String[] args) throws Exception {
-        String user = "Ken";
         String target = "localhost:50051";
 
         ManagedChannel channel = ManagedChannelBuilder.forTarget(target).usePlaintext().build();
         try {
             HelloWorldClient client = new HelloWorldClient(channel);
-            client.greet(user);
+            if (args.length > 0) {
+                for (String name : args) {
+                    client.greet(name);
+                }
+            } else {
+                client.greet("Ken");
+            }
         } finally {
             channel.shutdownNow().awaitTermination(5, TimeUnit.SECONDS);
         }

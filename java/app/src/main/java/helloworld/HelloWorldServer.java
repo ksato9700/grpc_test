@@ -78,6 +78,13 @@ public class HelloWorldServer {
 
         @Override
         public void sayHello(HelloRequest req, StreamObserver<HelloReply> responseObserver) {
+            if ("Donald".equals(req.getName())) {
+                responseObserver.onError(
+                        io.grpc.Status.INVALID_ARGUMENT
+                                .withDescription("Ouch! I don't like you, " + req.getName())
+                                .asRuntimeException());
+                return;
+            }
             logger.info(req.toString());
 
             HelloReply reply = HelloReply.newBuilder().setMessage("Hello " + req.getName()).build();
