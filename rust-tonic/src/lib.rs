@@ -17,12 +17,21 @@ impl Greeter for MyGreeter {
         &self,
         request: Request<HelloRequest>,
     ) -> Result<Response<HelloReply>, Status> {
-        info!("Got a request from {:?}", request.remote_addr());
-        info!("request={:?}", request);
-        info!("request.extra={:?}", request.get_ref().extra);
+        let remote_addr = request.remote_addr();
+        let req = request.into_inner();
+
+        info!("Got a request from {:?}", remote_addr);
+        info!("request={:?}", req);
+
+        if req.name == "Donald" {
+            return Err(Status::invalid_argument(format!(
+                "Ouch! I don't like you, {}",
+                req.name
+            )));
+        }
 
         let reply = hello_world::HelloReply {
-            message: format!("Hello {}!", request.into_inner().name),
+            message: format!("Hello {}!", req.name),
         };
         Ok(Response::new(reply))
     }
@@ -52,6 +61,21 @@ mod tests {
 
         let response = greeter.say_hello(request).await.unwrap();
         assert_eq!(response.into_inner().message, "Hello Unit Test!");
+    }
+
+    #[tokio::test]
+    async fn unit_test_say_hello_donald() {
+        let greeter = MyGreeter::default();
+        let request = Request::new(HelloRequest {
+            name: "Donald".into(),
+            ver: 1,
+            blood_type: BloodType::O as i32,
+            extra: None,
+        });
+
+        let response = greeter.say_hello(request).await;
+        assert!(response.is_err());
+        assert_eq!(response.err().unwrap().code(), tonic::Code::InvalidArgument);
     }
 
     #[tokio::test]

@@ -1,11 +1,14 @@
-FROM rust:alpine3.18 as builder
-WORKDIR /work
-RUN apk add --no-cache cmake make build-base protoc
-COPY build.rs Cargo.toml Cargo.lock /work/
-COPY proto /work/proto
-COPY src /work/src
-RUN cargo build --release --bin server
+FROM rust:1.85-alpine as builder
+WORKDIR /app
+RUN apk add --no-cache musl-dev protoc
+COPY . .
+RUN cargo build --release
 
-FROM alpine:3.18
-COPY --from=builder /work/target/release/server /server
+FROM alpine:3.21
+WORKDIR /app
+COPY --from=builder /app/target/release/server ./server
+COPY --from=builder /app/target/release/client ./client
+ENV RUST_LOG=info
+ENV PORT=8080
+EXPOSE 8080
 CMD ["./server"]
