@@ -26,3 +26,9 @@ run-server-docker:
 
 run-client:
 	bundle exec ruby client.rb $(ARGS)
+
+lint:
+	bundle exec standardrb
+
+fmt:
+	bundle exec standardrb --fix
