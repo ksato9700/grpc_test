@@ -15,6 +15,7 @@ help:
 	@echo "  build-python   Build Python implementation"
 	@echo "  build-node     Build Node.js implementation"
 	@echo "  build-rust     Build Rust implementation"
+	@echo "  build-ruby     Build Ruby implementation"
 	@echo "  run-server-java   Run Java server"
 	@echo "  run-client-java   Run Java client (use ARGS=\"...\" for args)"
 	@echo "  test-java      Run Java tests"
@@ -22,6 +23,8 @@ help:
 	@echo "  run-client-node   Run Node client (use ARGS=\"...\" for args)"
 	@echo "  run-server-rust   Run Rust server"
 	@echo "  run-client-rust   Run Rust client (use ARGS=\"...\" for args)"
+	@echo "  run-server-ruby   Run Ruby server"
+	@echo "  run-client-ruby   Run Ruby client (use ARGS=\"...\" for args)"
 	@echo "  all            Build all implementations"
 
 .PHONY: proto-up
@@ -42,6 +45,10 @@ build-node:
 .PHONY: build-rust
 build-rust:
 	$(MAKE) -C rust-tonic build
+
+.PHONY: build-ruby
+build-ruby:
+	$(MAKE) -C ruby build
 
 .PHONY: run-server-java
 run-server-java:
@@ -71,5 +78,13 @@ run-server-rust:
 run-client-rust:
 	$(MAKE) -C rust-tonic run-client ARGS="$(ARGS)"
 
+.PHONY: run-server-ruby
+run-server-ruby:
+	$(MAKE) -C ruby run-server
+
+.PHONY: run-client-ruby
+run-client-ruby:
+	$(MAKE) -C ruby run-client ARGS="$(ARGS)"
+
 .PHONY: all
-all: build-java build-python build-node build-rust
+all: build-java build-python build-node build-rust build-ruby

@@ -10,6 +10,7 @@ This repository contains multiple implementations (agents) of the Greeter servic
 | **Node.js** | `node/` | NPM / Yarn | `make run-server-local` | `make run-client` |
 | **Python** | `python/` | uv / pip | `make run-server` | `make run-client-local` |
 | **Rust** | `rust-tonic/` | Cargo | `make run-server-local` | `make run-client` |
+| **Ruby** | `ruby/` | Bundler | `make run-server` | `make run-client` |
 
 ---
 
@@ -87,6 +88,22 @@ make run-client
 
 ---
 
+## Ruby Agent
+
+### Prerequisites
+- Ruby 3.2+
+- Bundler
+
+### Setup & Run
+```bash
+cd ruby
+make build        # Generate gRPC code and install gems
+make run-server
+make run-client   # use ARGS="..." for arguments
+```
+
+---
+
 ## Root Makefile Shortcuts
 
 For convenience, you can run commands from the root directory:
@@ -96,10 +113,12 @@ make build-java        # Build Java agent
 make build-python      # Build Python agent
 make build-node        # Build Node agent
 make build-rust        # Build Rust agent
+make build-ruby        # Build Ruby agent
 
 make run-server-java   # Run Java server
 make run-server-node   # Run Node server
 make run-server-rust   # Run Rust server
+make run-server-ruby   # Run Ruby server
 
 make all               # Build all agents
 ```

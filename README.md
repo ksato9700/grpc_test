@@ -6,6 +6,7 @@ This repository contains a simple gRPC Greeter service implementation in multipl
 - **Node.js**: `node/`
 - **Python**: `python/`
 - **Rust**: `rust-tonic/`
+- **Ruby**: `ruby/`
 
 ## Getting Started
 
