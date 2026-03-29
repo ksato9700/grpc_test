@@ -15,8 +15,8 @@ repositories {
 sourceCompatibility = 21
 targetCompatibility = 21
 
-def grpcVersion = '1.61.1'
-def protobufVersion = '3.25.3'
+def grpcVersion = '1.80.0'
+def protobufVersion = '4.34.1'
 def protocVersion = protobufVersion
 
 dependencies {
