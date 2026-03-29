@@ -1,5 +1,7 @@
 # gRPC Agents
 
+> For a full architectural overview, see [docs/overview.md](./docs/overview.md).
+
 This repository contains multiple implementations (agents) of the Greeter service using gRPC. Each agent can act as both a server and a client, allowing for cross-language communication.
 
 ## Agent Overview
