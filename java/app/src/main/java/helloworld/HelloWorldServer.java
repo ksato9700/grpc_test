@@ -88,7 +88,7 @@ public class HelloWorldServer {
             }
             logger.info(req.toString());
 
-            HelloReply reply = HelloReply.newBuilder().setMessage("Hello " + req.getName()).build();
+            HelloReply reply = HelloReply.newBuilder().setMessage("Hello " + req.getName() + "!").build();
             responseObserver.onNext(reply);
             responseObserver.onCompleted();
         }
