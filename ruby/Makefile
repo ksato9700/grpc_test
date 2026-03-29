@@ -27,6 +27,9 @@ run-server-docker:
 run-client:
 	bundle exec ruby client.rb $(ARGS)
 
+test:
+	bundle exec ruby test_greeter.rb
+
 lint:
 	bundle exec standardrb
 

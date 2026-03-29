@@ -17,6 +17,9 @@ run-server-docker:
 run-client:
 	pnpm dev:client Joe Bill Donald
 
+test: protos
+	pnpm test
+
 lint:
 	pnpm lint
 

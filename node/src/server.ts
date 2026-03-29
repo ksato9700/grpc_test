@@ -1,3 +1,4 @@
+import { fileURLToPath } from 'node:url';
 import * as grpc from '@grpc/grpc-js';
 import { helloworld } from './proto.js';
 
@@ -16,10 +17,14 @@ const sayHello: grpc.UntypedHandleCall = (call, callback) => {
   callback(null, { message });
 };
 
-function main() {
+export function createServer(): grpc.Server {
   const server = new grpc.Server();
   server.addService(helloworld.Greeter.service, { sayHello });
+  return server;
+}
 
+function main() {
+  const server = createServer();
   const port = process.env.PORT || '50051';
   const address = `0.0.0.0:${port}`;
 
@@ -32,4 +37,6 @@ function main() {
   });
 }
 
-main();
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  main();
+}
