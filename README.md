@@ -18,3 +18,7 @@ The Protocol Buffer definitions are located in the `proto/` directory.
 
 - `helloworld.proto`: Defines the Greeter service and messages.
 - `blood_type.proto`: Defines an enum used in the messages.
+
+## Security Note
+
+All implementations use **insecure (plaintext) connections** — no TLS or authentication. This is intentional for a local development and testing harness. Do not expose these servers in shared or production environments.

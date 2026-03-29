@@ -80,8 +80,7 @@ make run-client-local
 ### Setup & Run
 ```bash
 cd rust-tonic
-make protos       # Copy protos to local directory
-make build        # Build the project
+make build        # Build the project (protos are read from ../proto/ automatically)
 make run-server-local
 make run-client
 ```
@@ -101,6 +100,31 @@ make build        # Generate gRPC code and install gems
 make run-server
 make run-client   # use ARGS="..." for arguments
 ```
+
+---
+
+## Cross-Language Interoperability
+
+All agents share the same proto contract and default port (`50051`), so any server can talk to any client. Start a server in one language and run a client from another:
+
+```bash
+# Terminal 1 — start the Rust server
+cd rust-tonic && make run-server-local
+
+# Terminal 2 — connect with the Python client
+cd python && make run-client-local
+
+# Or use root shortcuts
+make run-server-rust   # Terminal 1
+make run-client-node   # Terminal 2 — Node client → Rust server
+```
+
+Any combination works. To pass custom names:
+```bash
+make run-client-java ARGS="Alice Bob Donald"
+```
+
+> **Note:** All implementations use insecure (plaintext) connections — no TLS or authentication. This is intentional for a local development harness; do not expose these servers in shared or production environments.
 
 ---
 

@@ -1,8 +1,9 @@
 import { fileURLToPath } from 'node:url';
 import * as grpc from '@grpc/grpc-js';
+import type { HelloReply, HelloRequest } from './proto.js';
 import { helloworld } from './proto.js';
 
-const sayHello: grpc.UntypedHandleCall = (call, callback) => {
+const sayHello: grpc.handleUnaryCall<HelloRequest, HelloReply> = (call, callback) => {
   const name = call.request.name;
   console.log(`Received request from: ${name}`);
 

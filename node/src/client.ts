@@ -1,7 +1,8 @@
 import * as grpc from '@grpc/grpc-js';
+import type { HelloReply } from './proto.js';
 import { helloworld } from './proto.js';
 
-function main() {
+async function main() {
   const args = process.argv.slice(2);
   let target = 'localhost:50051';
   let names: string[] = [];
@@ -20,12 +21,15 @@ function main() {
   const client = new helloworld.Greeter(target, grpc.credentials.createInsecure());
 
   for (const name of names) {
-    client.sayHello({ name }, (error: grpc.ServiceError | null, response: any) => {
-      if (!error) {
-        console.log(`Greeting: ${response.message}`);
-      } else {
-        console.error(`RPC failed for ${name}: ${error.message}`);
-      }
+    await new Promise<void>((resolve) => {
+      client.sayHello({ name }, (error: grpc.ServiceError | null, response: HelloReply) => {
+        if (!error) {
+          console.log(`Greeting: ${response.message}`);
+        } else {
+          console.error(`RPC failed for ${name}: ${error.message}`);
+        }
+        resolve();
+      });
     });
   }
 }

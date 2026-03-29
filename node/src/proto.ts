@@ -18,3 +18,14 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 
 const protoDescriptor = grpc.loadPackageDefinition(packageDefinition);
 export const helloworld = (protoDescriptor as any).helloworld;
+
+export interface HelloRequest {
+  name: string;
+  ver: string;
+  blood_type: string;
+  extra?: { extra_message: string; extra_code: string };
+}
+
+export interface HelloReply {
+  message: string;
+}

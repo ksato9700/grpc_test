@@ -1,14 +1,11 @@
 import logging
 import os
-import time
 from concurrent import futures
 
 import grpc
 
 from .helloworld import helloworld_pb2 as pb2
 from .helloworld import helloworld_pb2_grpc as pb2_grpc
-
-_ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO)
@@ -44,8 +41,7 @@ def serve_forever():
     port = os.environ.get("PORT", "50051")
     server = serve(port)
     try:
-        while True:
-            time.sleep(_ONE_DAY_IN_SECONDS)
+        server.wait_for_termination()
     except KeyboardInterrupt:
         server.stop(0)
 
