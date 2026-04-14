@@ -10,7 +10,7 @@ dependencies = ["grpcio>=1.78.0", "protobuf>=6.33.0", "click>=8.2.0"]
 dev = [
     "ruff>=0.9.4",
     "grpcio-tools>=1.78.0",
-    "pytest>=8.4.0",
+    "pytest>=9.0.3",
 ]
 
 [build-system]
