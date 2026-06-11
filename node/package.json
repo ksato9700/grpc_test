@@ -12,7 +12,7 @@
     "format": "biome format --write src"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.13.3",
+    "@grpc/grpc-js": "^1.14.4",
     "@grpc/proto-loader": "^0.7.15"
   },
   "devDependencies": {
